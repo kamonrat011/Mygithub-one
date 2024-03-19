@@ -21,7 +21,7 @@ jobs:
       - name: Run Prettier to format code
         run: npx prettier --write .
 
-      - name: Run Super-Linter
+      - name: Install Super-Linter
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
