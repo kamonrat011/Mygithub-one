@@ -1,17 +1,32 @@
-name : Super - Linter
+name: Code Checks and Auto-fix
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  super-lint:
-    name: Lint code base
+  lint-and-fix:
+    name: Lint Code and Auto-fix
     runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout code
+    steps:
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Dependencies
+        run: npm install   # ตัวอย่างเป็น npm, สามารถปรับเปลี่ยนเป็นตัวอื่นได้ตามการใช้งาน
+
+      - name: Lint and Auto-fix Code
+        run: npm run lint -- --fix  # ตัวอย่างเป็น npm script ที่ใช้รันการตรวจสอบโค้ดพร้อมกับการแก้ไขอัตโนมัติ
+
+      - name: Commit Changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git diff --quiet && git diff --staged --quiet || git commit -am "Auto-fix linting issues"
+          git push
