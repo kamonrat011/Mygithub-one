@@ -18,10 +18,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: npm install   # ตัวอย่างเป็น npm, สามารถปรับเปลี่ยนเป็นตัวอื่นได้ตามการใช้งาน
+        run: npm install
 
       - name: Lint and Auto-fix Code
-        run: npm run lint -- --fix  # ตัวอย่างเป็น npm script ที่ใช้รันการตรวจสอบโค้ดพร้อมกับการแก้ไขอัตโนมัติ
+        run: npm run lint -- --fix
 
       - name: Commit Changes
         run: |
